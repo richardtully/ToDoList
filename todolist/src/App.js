@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import Title from './title'
+import InputField from './InputField'
 
 function App() {
   return (
     <div className="App">
-      <Title />
+      <Title/>
+      <InputField />
+
     </div>
   );
 }
