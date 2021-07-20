@@ -1,28 +1,51 @@
-// import HandleSubmit from "./handleSubmit";
+import React, { Component } from 'react'
+import Item from './todoItem'
 
-import HandleSubmit from "./handleSubmit";
+let x = []
 
+class InputField extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            todo: [],
+            currentItem: ''
+        };
+    }
 
+    extract = (e) => {
 
-function InputField() {
-    // const handleSubmit = new HandleSubmit()
+        this.setState({currentItem: e.target.value}) 
 
-    // const onSubmit = data => {
-    //     console.log(data)
-    // }
-    // console.log(value)
-    return (
-        // <form onSubmit = {handleSubmit.onSubmit(value)}>
-        <form onSubmit = {console.log('')}>
-            <label>
-                <input type="text" name="name" />
-            </label>
-            <input type="submit" value={HandleSubmit.submitted}/>
-        </form>
-    )
+        // console.log(this.state.currentItem)
+    }
 
+    add = () => {
+        x.unshift(this.state.currentItem)
+        // let list = this.state.todo
+        // console.log(list)
+        this.setState({todo: x})
+        return this.state.todo
+    }
+
+    render(){
+        return (
+            <div>
+                <input onChange = {this.extract} id = 'item' type="text" name="name"/>
+                {/* 
+                access the value attribute of the input feild (the one which
+                we're actually adding todo things to) from a different element
+                */}
+                <input type="submit" value='Add' onClick = {this.add} />
+
+                <h1>Checklist</h1>
+
+                {this.state.todo.map(item => <Item value = {item}/>)}
+
+                {/* <p>{this.state.todo}</p> */}
+
+            </div>
+        )
+    }
 }
-
-
 
 export default InputField;
