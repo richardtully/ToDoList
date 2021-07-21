@@ -1,48 +1,43 @@
 import React, { Component } from 'react'
 import Item from './todoItem'
 
-let x = []
-
 class InputField extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            todo: [],
-            currentItem: ''
-        };
+        this.state = {todo: [] };
     }
 
-    extract = (e) => {
-
-        this.setState({currentItem: e.target.value}) 
-
-        // console.log(this.state.currentItem)
+    addToList = () => {
+        let itemList = this.state.todo
+        itemList.push(document.getElementById('inputItem').value)
+        this.setState({todo: itemList})
     }
 
-    add = () => {
-        x.unshift(this.state.currentItem)
-        // let list = this.state.todo
-        // console.log(list)
-        this.setState({todo: x})
-        return this.state.todo
+    clear = () => {
+        let newtodo = []
+        console.log(document.getElementById(`todoItem-0`).state.textDecoration)
+
+        // for (let i=0; i<this.state.todo.length;i++) {
+        //     if (document.getElementById(`todoItem-${i}`).state.textDecoration === '') {
+        //         newtodo.push(this.state.todo[i])
+        //     }
+        // }
+        console.log('clear')
     }
 
     render(){
         return (
             <div>
-                <input onChange = {this.extract} id = 'item' type="text" name="name"/>
-                {/* 
-                access the value attribute of the input feild (the one which
-                we're actually adding todo things to) from a different element
-                */}
-                <input type="submit" value='Add' onClick = {this.add} />
+                <input id = 'inputItem' type="text"/>
+                <input type="submit" value='Add' onClick = {this.addToList} />
 
-                <h1>Checklist</h1>
+                <h3>Checklist</h3>
 
-                {this.state.todo.map(item => <Item value = {item}/>)}
+                <a href = '#' onClick = {this.clear} >Clear</a>
 
-                {/* <p>{this.state.todo}</p> */}
-
+                <div>
+                    {this.state.todo.map((item, index) => <Item value = {item} id = {index} key = {index} />)}
+                </div>
             </div>
         )
     }
